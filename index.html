@@ -100,7 +100,23 @@
             animation: headShake 1.5s infinite, float 3s ease-in-out infinite;
             z-index: 3;
         }
+        @keyframes headShake {
+            0% { transform: translateX(-50%) rotate(0); }
+            50% { transform: translateX(-50%) rotate(30deg); }
+            100% { transform: translateX(-50%) rotate(-30deg); }
+        }
 
+        @keyframes blink {
+            0%, 100% { content: "🐮"; }
+            50% { content: "🐮"; }
+            25%, 75% { content: "🐂"; } /* 眨眼效果 */
+        }
+
+        .emoji::before {
+            content: "🐮";
+            display: inline-block;
+        }
+        
         /* 新增漂浮动画 */
         @keyframes float {
             0%, 100% { transform: translate(-50%, 0); }
@@ -226,6 +242,16 @@
             alert("点击任意位置开始播放音乐！");
         }
     </script>
+
+    <!-- 背景音乐 -->
+    <audio id="bg-music" autoplay loop>
+        <source src="https://raw.githubusercontent.com/uyisuf/spring/main/轻松愉快的氛围曲-开心活泼-祝你生日快乐（古典版）_爱给网_aigei_com.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 牛哞哞叫声 -->
+    <audio id="moo-sound" autoplay loop>
+        <source src="https://raw.githubusercontent.com/uyisuf/spring/main/牛哞哞叫的声音_爱给网_aigei_com.mp3" type="audio/mpeg">
+    </audio>
 </body>
 </html>
 ```
