@@ -1,0 +1,231 @@
+
+```html
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>春江水 - 生日祝福</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=ZCOOL+KuaiLe&display=swap');
+
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ffe4e1, #d8bfd8, #b0e0e6);
+            background-size: 400% 400%;
+            animation: gradientBG 10s infinite alternate;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        /* 新增星空背景 */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 1.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        /* 亮片效果 */
+        .glitter {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: glitterFall 3s linear infinite;
+        }
+
+        @keyframes glitterFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .top-text {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: absolute;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .top-text:nth-child(1) { 
+            top: 5%;
+            animation: slideIn 1s ease-out;
+        }
+        .top-text:nth-child(2) { 
+            top: 15%;
+            animation: slideIn 1.2s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .container {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .cake {
+            font-size: 200px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 10px pink);
+        }
+
+        .emoji {
+            font-size: 120px;
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: headShake 1.5s infinite, float 3s ease-in-out infinite;
+            z-index: 3;
+        }
+
+        /* 新增漂浮动画 */
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -20px); }
+        }
+
+        .eye {
+            position: absolute;
+            width: 18px;
+            height: 10px;
+            background: #333;
+            border-radius: 50%;
+            top: 30%;
+            left: 28%;
+            animation: blink 3s infinite;
+        }
+
+        .eye.right { left: 62%; }
+
+        .message {
+            font-size: 32px;
+            color: #ff69b4;
+            position: absolute;
+            bottom: 15%;
+            width: 100%;
+            font-family: 'Pacifico', cursive;
+            animation: rainbow 2s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff69b4; }
+            50% { color: #ffdd00; }
+            100% { color: #ff69b4; }
+        }
+
+        /* 增强气球动画 */
+        .balloon {
+            position: absolute;
+            font-size: 50px;
+            animation: floatBalloon 8s infinite linear;
+            z-index: 0;
+        }
+
+        @keyframes floatBalloon {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        /* 新增3D旋转彩带 */
+        .ribbon {
+            position: absolute;
+            font-size: 40px;
+            animation: spin 8s infinite linear;
+            transform-origin: 50% 50%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top-text">🎵 山歌好比春江水 🎵</div>
+    <div class="top-text">🐮 牛牛到底姓名谁 🧐</div>
+
+    <div class="container">
+        <div class="cake">🎂</div>
+        <div class="emoji" id="cow">
+            🐮
+            <div class="eye"></div>
+            <div class="eye right"></div>
+        </div>
+    </div>
+
+    <div class="message">🎉 生日快乐，牛牛哞哞 ！🎂</div>
+
+    <!-- 自动生成装饰元素 -->
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-308.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 生成星星和亮片
+        function createDecorations() {
+            for(let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = Math.random() > 0.5 ? 'star' : 'glitter';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(star);
+            }
+        }
+
+        // 生成气球和彩带
+        function createBalloons() {
+            const emojis = ['🎈', '🎉', '🎀', '✨'];
+            for(let i = 0; i < 20; i++) {
+                const elem = document.createElement('div');
+                elem.className = Math.random() > 0.5 ? 'balloon' : 'ribbon';
+                elem.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                elem.style.left = `${Math.random() * 100}%`;
+                elem.style.fontSize = `${30 + Math.random() * 30}px`;
+                elem.style.animationDuration = `${5 + Math.random() * 10}s`;
+                document.body.appendChild(elem);
+            }
+        }
+
+        // 音乐自动播放处理
+        document.addEventListener('click', () => {
+            const audio = document.getElementById('bg-music');
+            audio.play().catch(() => console.log('播放需要用户交互'));
+        }, { once: true });
+
+        // 初始化
+        window.onload = () => {
+            createDecorations();
+            createBalloons();
+            document.body.style.cursor = 'pointer';
+            alert("点击任意位置开始播放音乐！");
+        }
+    </script>
+</body>
+</html>
+```
